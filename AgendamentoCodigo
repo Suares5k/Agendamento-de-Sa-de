@@ -1,0 +1,46 @@
+class ExameSaude:
+    def __init__(self):
+        self.agenda = {}
+
+    def agendar_exame(self, data, horario, tipo_exame):
+        chave = f"{data} {horario}"
+        if chave in self.agenda:
+            return "Horário indisponível. Por favor, escolha outro horário."
+        self.agenda[chave] = tipo_exame
+        return f"Exame de {tipo_exame} agendado para {data} às {horario}."
+
+    def verificar_agenda(self):
+        if not self.agenda:
+            return "Nenhum exame agendado."
+        agenda = "Agenda de Exames:\n"
+        for chave, tipo_exame in self.agenda.items():
+            data, horario = chave.split()
+            agenda += f"{data} às {horario}: Exame de {tipo_exame}\n"
+        return agenda
+
+def main():
+    aplicativo = ExameSaude()
+    while True:
+        print("\nEscolha uma opção:")
+        print("1. Agendar exame")
+        print("2. Verificar agenda de exames")
+        print("3. Sair")
+        opcao = input("Opção: ")
+
+        if opcao == "1":
+            data = input("Digite a data (DD/MM/AAAA): ")
+            horario = input("Digite o horário (HH:MM): ")
+            tipo_exame = input("Digite o tipo de exame: ")
+            resultado = aplicativo.agendar_exame(data, horario, tipo_exame)
+            print(resultado)
+
+        elif opcao == "2":
+            agenda = aplicativo.verificar_agenda()
+            print(agenda)
+
+        elif opcao == "3":
+            print("Saindo do aplicativo. Obrigado!")
+            break
+
+if __name__ == "__main__":
+    main()
